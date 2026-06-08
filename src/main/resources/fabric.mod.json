@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "rtptracker",
+  "version": "1.4.7",
+  "name": "OPSucht RTP Tracker",
+  "description": "Professioneller RTP & Job Buchhalter",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "net.opsucht.RtpTracker.RtpTrackerClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.3",
+    "minecraft": "~1.21.11",
+    "fabric-api": "*"
+  }
+}
+
