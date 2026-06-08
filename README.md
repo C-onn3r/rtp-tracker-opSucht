@@ -31,7 +31,7 @@ Die Mod trackt deine Ausgaben für RTP (Random Teleport) und verrechnet sie auto
 Die Mod speichert deine Historie in einer einfachen Textdatei. Wenn du Werte korrigieren oder händisch eintragen willst, kannst du die Datei einfach mit einem Texteditor bearbeiten.
 
 * **Dateiname:** `rtp_tracker_history.txt`
-* **Speicherort:** Im `.minecraft/config`-Ordner (oder wo auch immer dein Minecraft-Verzeichnis auf Windows/Linux/Mac liegt, keine Ahnung, sucht es euch selbst raus).
+* **Speicherort:** Im `.minecraft/config`-Ordner (unter Linux. Bei Windoof, keine Ahnung, sucht es euch selbst raus xD).
 
 ---
 
