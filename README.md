@@ -1,43 +1,50 @@
 # OpSucht Job & RTP Buchhaltung 🧾🚀
 
 **WICHTIGER HINWEIS VORAB:**
-Dieses Projekt ist zu 100% vibecoded mit dem LLM *Gemini 3.5 Flash Thinking Erweitert*. Ich habe das Ding nicht selbst programmiert, sondern von der KI zusammenbauen lassen. Ich übernehme keinerlei Haftung für explodierende Konten, verpasste Payouts oder geschmolzene PCs! Ich stelle die Mod einfach nur bereit, weil ich nett bin. Wenn es läuft, läuft's – wenn nicht, dann nicht. 🤷‍♂️
+Dieses Projekt ist zu 100% vibecoded mit dem LLM *Gemini*. Ich habe das Ding nicht selbst programmiert, sondern von der KI zusammenbauen lassen. Ich übernehme keinerlei Haftung für explodierende Konten, verpasste Payouts oder geschmolzene PCs! Ich stelle die Mod einfach nur bereit, weil ich nett bin. Wenn es läuft, läuft's – wenn nicht, dann nicht. 🤷‍♂️
 
 ---
 
 ## 🔥 Was kann die Mod?
 
-Die Mod trackt deine Ausgaben für RTP (Random Teleport) und verrechnet sie automatisch mit deinen Einnahmen aus dem Jobcenter, damit du deine Finanzen auf OpSucht im Blick behältst.
+Die Mod trackt deine Ausgaben für RTP (Random Teleport) und verrechnet sie vollautomatisch und **hochpräzise in Echtzeit** mit deinen Einnahmen und der Job-XP aus der Actionbar, damit du deine Finanzen und deinen Grind auf OpSucht perfekt im Blick behältst. 
 
 ### 🛠️ Befehle & Funktionen
 
-* **`/RTPMenu`**
-    Öffnet das Hauptfenster der Buchhaltung. Hier siehst du die Verrechnung deiner RTP-Kosten mit den Job-Einnahmen.
+* **`/rtpmenu`**
+    Öffnet das Hauptfenster der Buchhaltung. Hier siehst du die tagesaktuelle Verrechnung deiner RTP-Kosten (25.000$ pro RTP) mit deinen Echtzeit-Einnahmen und deinen verdienten Job-XP.
     
-<img width="705" height="482" alt="grafik" src="https://github.com/user-attachments/assets/32b7f5d9-42be-42ff-8c7c-27ee5745dfe6" />
+<img width="855" height="488" alt="grafik" src="https://github.com/user-attachments/assets/5ec9e286-a3c0-4c9c-9340-234f00b8aaae" />
+(Xp für eine Woche am 13.06 nachgetragen, daher sind die XP dort so hoch)
 
 
-* **`/RTPMenu Nachtrag`**
-    Sollte dazu dienen, alte Einträge aus deinem Bank-Menü nachträglich eintragen zu lassen. 
-    *Disclaimer:* Funktioniert absolut nicht richtig. Ich war aber zu faul, das neu zu kompilieren und es ist mir ehrlich gesagt auch egal. Es bleibt jetzt einfach so drin – nutzt es auf eigene Gefahr!
-
-* **`/RTPMenu debug`**
-    Schaltet Chat-Benachrichtigungen ein/aus. Wenn aktiviert, zeigt es dir im Chat an, dass ein Payout oder ein RTP-Biom erfolgreich erfasst wurde. Standardmäßig deaktiviert (weil es sonst nervt).
+* **`/rtpmenu debug`**
+    Schaltet Benachrichtigungen ein/aus. Wenn aktiviert, zeigt es dir im Chat an, wenn ein RTP-Biom erfasst wurde. Standardmäßig deaktiviert, um den Chat sauber zu halten.
 
 ---
 
-## 📂 Manuelle Bearbeitung (Für Daten-Messis)
+## 📈 Intelligentes Payout- & Statistik-System
 
-Die Mod speichert deine Historie in einer einfachen Textdatei. Wenn du Werte korrigieren oder händisch eintragen willst, kannst du die Datei einfach mit einem Texteditor bearbeiten.
+Die Mod nutzt zwei getrennte Systeme, um die Daten so präzise wie möglich zu erfassen:
 
-* **Dateiname:** `rtp_tracker_history.txt`
-* **Speicherort:** Im `.minecraft/config`-Ordner (unter Linux. Bei Windoof, keine Ahnung, sucht es euch selbst raus xD).
+1. **Echtzeit-Lohn & Job-XP (Actionbar):** Jeder einzelne Cent und jeder XP-Punkt werden direkt beim Farmen aus der Actionbar ausgelesen (`+11,17$ • +2,5 XP`). Das manuelle Eintragsfeld im Menü wurde komplett entfernt, da kein einziger Cent mehr verloren geht – selbst wenn du mitten in der Minute den Server wechselst oder dein Werkzeug kaputtgeht!
+2. **Durchschnitt & Höchstwert (Chat):** Um den echten Minutendurchschnitt deines Jobs nicht durch Serverwechsel oder Pausen zu verfälschen, wird für das **Höchste Payout** und das **Durchschnitts-Payout** weiterhin das offizielle Minuten-Payout aus dem Chat abgefangen.
+   * *Hinweis:* In die Durchschnitts-Berechnung fließen automatisch **nur Payouts ab 8.000$** ein, damit kleinere "Anfahrts-Minuten" oder unvollständige Intervalle die Statistik nicht verfälschen. Alle Payouts werden zudem ungefiltert in der Datei `rtp_all_payouts.txt` protokolliert.
 
 ---
 
-## 🐛 Bekannte Bugs & Features (Die eigentlich Bugs sind)
+## 📂 Manuelle Bearbeitung & Dateistruktur
 
-Da das Ding von einer KI zusammengeschustert wurde, gibt es ein paar Eigenheiten:
+Die Mod speichert deine Historie in einfachen Textdateien im Minecraft-Verzeichnis. Wenn du Werte korrigieren willst, kannst du sie einfach mit einem Texteditor bearbeiten.
 
-1.  **Verpasste Payouts:** Das Job-Geld wird über die Payout-Nachrichten im Chat erfasst. Wenn du genau in dem Moment AFK bist, dich teleportierst oder der Chat laggt, kann es passieren, dass das Payout **nicht** registriert wird. Leb damit oder rechne es händisch nach!
-2.  Der gesamte `/RTPMenu Nachtrag`-Befehl (siehe oben).
+* **Speicherort:** `.minecraft/config/`
+* **`rtp_tracker_history.txt`:** Enthält die Metadaten (Höchstwerte, Durchschnitts-Zwischenstände) sowie die täglichen Einträge im Format: `Datum, RTP-Anzahl, Lohn, Job-XP`.
+* **`rtp_all_payouts.txt`:** Eine fortlaufende Liste aller jemals erhaltenen Minuten-Chatpayouts für die ganz genauen Daten-Messis unter euch.
+
+---
+
+## 🐛 Behobene Fehler & Stabilität
+
+Dank intensiver KI-Nachhilfe wurden die alten Kinderkrankheiten der Mod vollständig ausgemerzt:
+* **Keine verpassten Payouts mehr:** Durch den Wechsel auf die Actionbar-Erfassung ist die Tagesbilanz nun zu 100% genau.
+* **Kein Text-Salat mehr:** Das Interface wurde verbreitert. Selbst wenn du Multimillionär wirst, überlappen die Zahlen beim Lohn, der Bilanz und den Job-XP im Menü nicht mehr.
