@@ -8,16 +8,17 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RtpTrackerClient implements ClientModInitializer {
     private static final DateTimeFormatter GERMAN_DATE = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+    private static final Pattern ACTIONBAR_MONEY_PATTERN = Pattern.compile("\\+([0-9.,]+)\\$");
+    private static final Pattern ACTIONBAR_XP_PATTERN = Pattern.compile("\\+([0-9.,]+)\\s*XP"); // NEU: Regex für XP
 
     @Override
     public void onInitializeClient() {
         RtpDataManager.loadHistory();
-        
-        // Aktiviert das neue Scanner-Addon
-        RtpGuiScanner.register();
 
         ClientReceiveMessageEvents.GAME.register((message, overlay) -> {
             String cleanText = message.getString();
@@ -27,7 +28,7 @@ public class RtpTrackerClient implements ClientModInitializer {
                 if (RtpDataManager.debugMode) sendMessage("§6[Tracker] §aRTP erfasst! (/rtpmenu)");
             }
             
-            if (cleanText.contains("Du hast deinen Lohn von") && cleanText.contains("erhalten!")) {
+            if (!overlay && cleanText.contains("Du hast deinen Lohn von") && cleanText.contains("erhalten!")) {
                 try {
                     int startIdx = cleanText.indexOf("Lohn von ") + 9;
                     int endIdx = cleanText.indexOf("$ erhalten");
@@ -35,17 +36,32 @@ public class RtpTrackerClient implements ClientModInitializer {
                         String wageStr = cleanText.substring(startIdx, endIdx).trim();
                         wageStr = wageStr.replace(".", "").replace(",", ".");
                         double wage = Double.parseDouble(wageStr);
-                        
-                        RtpDataManager.checkHighestPayout(wage);
-                        
-                        String heute = LocalDate.now().format(GERMAN_DATE);
-                        RtpDataManager.addJobWage(heute, wage);
-                        
-                        if (RtpDataManager.debugMode) {
-                            sendMessage("§6[Tracker] §eLohn von +" + String.format("%,.2f", wage) + "$ verbucht!");
-                        }
+                        RtpDataManager.processChatPayoutStats(LocalDate.now().format(GERMAN_DATE), wage);
                     }
                 } catch (Exception e) { e.printStackTrace(); }
+            }
+
+            // Actionbar-Tracker (Geld & XP)
+            if (overlay) {
+                String heute = LocalDate.now().format(GERMAN_DATE);
+
+                // Geld auslesen
+                Matcher moneyMatcher = ACTIONBAR_MONEY_PATTERN.matcher(cleanText);
+                if (moneyMatcher.find()) {
+                    try {
+                        String moneyStr = moneyMatcher.group(1).replace(".", "").replace(",", ".");
+                        RtpDataManager.addJobWage(heute, Double.parseDouble(moneyStr));
+                    } catch (Exception ignored) {}
+                }
+
+                // NEU: XP auslesen
+                Matcher xpMatcher = ACTIONBAR_XP_PATTERN.matcher(cleanText);
+                if (xpMatcher.find()) {
+                    try {
+                        String xpStr = xpMatcher.group(1).replace(".", "").replace(",", ".");
+                        RtpDataManager.addJobXp(heute, Double.parseDouble(xpStr));
+                    } catch (Exception ignored) {}
+                }
             }
         });
 
@@ -60,12 +76,6 @@ public class RtpTrackerClient implements ClientModInitializer {
                     RtpDataManager.debugMode = !RtpDataManager.debugMode;
                     RtpDataManager.saveHistory();
                     sendMessage("§6[Tracker] §eChat-Benachrichtigungen: " + (RtpDataManager.debugMode ? "§aAN" : "§cAUS"));
-                    return 1;
-                }))
-                // NEU: Der Befehl zum Aktivieren des Staubsaugers
-                .then(ClientCommandManager.literal("nachtragen").executes(context -> {
-                    RtpGuiScanner.isScanning = !RtpGuiScanner.isScanning;
-                    sendMessage("§6[Tracker] §eScanner-Modus: " + (RtpGuiScanner.isScanning ? "§aAN §7(Öffne jetzt dein Transaktions-GUI)" : "§cAUS"));
                     return 1;
                 }))
             );
