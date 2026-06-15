@@ -15,7 +15,6 @@ Die Mod trackt deine Ausgaben für RTP (Random Teleport) und verrechnet sie voll
     Öffnet das Hauptfenster der Buchhaltung. Hier siehst du die tagesaktuelle Verrechnung deiner RTP-Kosten (25.000$ pro RTP) mit deinen Echtzeit-Einnahmen und deinen verdienten Job-XP.
     
 <img width="855" height="488" alt="grafik" src="https://github.com/user-attachments/assets/5ec9e286-a3c0-4c9c-9340-234f00b8aaae" />
-(Xp für eine Woche am 13.06 nachgetragen, daher sind die XP dort so hoch)
 
 
 * **`/rtpmenu debug`**
