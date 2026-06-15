@@ -34,6 +34,7 @@ Im Hauptordner findest du die Skripte `send_rtp_stats.sh` (Linux) und `send_rtp_
 
 1️⃣ **Discord:** Kanaleinstellungen ➔ Integrationen ➔ Webhooks ➔ Webhook erstellen & URL kopieren.
 2️⃣ **Skript:** Öffne die für dich passende Skript-Datei mit einem Texteditor und trage deine Webhook-URL sowie den Pfad zur `rtp_tracker_history.txt` ganz oben ein.
+
 3️⃣ **Automatisieren:**
    * 🪟 **Windows:** In der "Aufgabenplanung" eine neue Aufgabe erstellen, die die `send_rtp_stats.ps1` stündlich startet.
    * 🐧 **Linux:** `crontab -e` öffnen und diese Zeile am Ende einfügen:  
