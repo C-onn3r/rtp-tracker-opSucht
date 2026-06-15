@@ -9,7 +9,7 @@ Die Mod trackt deine RTP-Ausgaben (25.000$ pro Teleport) und verrechnet sie voll
 * **`/rtpmenu`** – Öffnet die grafische Buchhaltung (Übersicht aller Tage)[span_0](start_span)[span_0](end_span).
 * **`/rtpmenu debug`** – Schaltet Chat-Benachrichtigungen für erfasste RTP-Biome an/aus.
 
-![grafik.png](grafik.png)
+<img width="855" height="488" alt="grafik" src="https://github .com/user-attachments/assets /5ec9e286-a3c0-4c9c-9340 -234f00b8aaae" /
 
 ---
 
