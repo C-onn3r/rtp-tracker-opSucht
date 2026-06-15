@@ -42,8 +42,10 @@ Die Mod speichert deine Historie in einfachen Textdateien im Minecraft-Verzeichn
 
 ---
 
-## 🐛 Behobene Fehler & Stabilität
+📌 **RTP-Tracker Discord Bot einrichten**
 
-Dank intensiver KI-Nachhilfe wurden die alten Kinderkrankheiten der Mod vollständig ausgemerzt:
-* **Keine verpassten Payouts mehr:** Durch den Wechsel auf die Actionbar-Erfassung ist die Tagesbilanz nun zu 100% genau.
-* **Kein Text-Salat mehr:** Das Interface wurde verbreitert. Selbst wenn du Multimillionär wirst, überlappen die Zahlen beim Lohn, der Bilanz und den Job-XP im Menü nicht mehr.
+1️⃣ **Discord:** Kanaleinstellungen ➔ Integrationen ➔ Webhooks ➔ Neuen Webhook erstellen & URL kopieren.
+2️⃣ **Skript:** Skript-Datei mit einem Texteditor öffnen, Webhook-URL und den Pfad zu deiner `rtp_tracker_history.txt` ganz oben eintragen.
+3️⃣ **Automatisieren:**
+   • **Windows:** In der "Aufgabenplanung" eine neue Aufgabe erstellen, die das Skript stündlich startet.
+   • **Linux:** `crontab -e` öffnen und das hier eintragen: `0 * * * * /pfad/zu/send_rtp_stats.sh`
